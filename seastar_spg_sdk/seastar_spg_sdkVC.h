@@ -29,6 +29,7 @@
 -(void)initWithDelegate:(id<seastar_spg_sdkDelegate>)delegate;
 
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
+
 -(void)buyWithProduct:(NSString *)product;
 
 -(void)addTransactionObserver;

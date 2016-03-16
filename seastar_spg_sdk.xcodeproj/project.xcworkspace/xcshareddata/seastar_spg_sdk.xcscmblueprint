@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "09D90528D984B1A540DE912AF7F0BACC6B1361F3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "09D90528D984B1A540DE912AF7F0BACC6B1361F3" : 0,
+    "D3DC20B16DDF293177B757A901A4B556850BC351" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "264D0DD6-177F-4014-A8BB-1B17E53E03DC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "09D90528D984B1A540DE912AF7F0BACC6B1361F3" : "seastar_spg_sdk\/",
+    "D3DC20B16DDF293177B757A901A4B556850BC351" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "seastar_spg_sdk",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "seastar_spg_sdk.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:yintongbin\/sdk_ios_standalone.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "09D90528D984B1A540DE912AF7F0BACC6B1361F3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/yintongbin\/sdk_ios_standalone.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D3DC20B16DDF293177B757A901A4B556850BC351"
+    }
+  ]
+}

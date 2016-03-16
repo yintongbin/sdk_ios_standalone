@@ -21,5 +21,8 @@
 
 -(void)loginWithViewController:(UIViewController *)viewController;
 -(void)logOut;
+
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
+
+-(void)shareWithImage:(UIImage *)image ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
 @end

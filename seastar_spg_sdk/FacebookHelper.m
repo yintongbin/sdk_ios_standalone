@@ -8,9 +8,9 @@
 
 #import "FacebookHelper.h"
 #import "seastar_spg_sdkVC.h"
-@interface FacebookHelper()
+@interface FacebookHelper()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (nonatomic,strong)FBSDKLoginManager *loginManager;
-
+@property (nonatomic,strong)UIImagePickerController *imagePickerController;
 @end
 static FacebookHelper *_instance;
 @implementation FacebookHelper
@@ -22,6 +22,15 @@ static FacebookHelper *_instance;
         _instance = [[FacebookHelper alloc]init];
     }
     return _instance;
+}
+
+-(UIImagePickerController *)imagePickerController
+{
+    if(!_imagePickerController)
+    {
+        _imagePickerController = [[UIImagePickerController alloc]init];
+    }
+    return _imagePickerController;
 }
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -101,16 +110,7 @@ static FacebookHelper *_instance;
     [self.loginManager logOut];
 }
 
-//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(nonnull NSDictionary<NSString *,id> *)info
-//{
-//    UIImage *image = info[UIImagePickerControllerOriginalImage];
-//    FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc]init];
-//    
-//    photo.image = image;
-//    photo.userGenerated = YES;
-//    FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
-//    content.photos = @[photo];
-//}
+
 
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
 {
@@ -123,8 +123,11 @@ static FacebookHelper *_instance;
     [FBSDKShareDialog showFromViewController:viewController withContent:content delegate:nil];
 }
 
-
-
+-(void)shareWithImage:(UIImage *)image ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
+{
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc]init];
+    
+}
 
 
 

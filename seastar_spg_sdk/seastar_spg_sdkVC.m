@@ -56,6 +56,8 @@ static seastar_spg_sdkVC *_instance;
     [[GameCenterHelper Instance]authenticateLocalUserWithViewController:viewController];
 }
 
+
+
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
 {
     [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:viewController];
