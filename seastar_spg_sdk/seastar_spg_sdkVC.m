@@ -63,6 +63,17 @@ static seastar_spg_sdkVC *_instance;
     [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:viewController];
 }
 
+-(void)shareWithImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
+{
+    [[FacebookHelper Instance]shareWithImageStr:imageStr WithVIewController:viewController];
+}
+
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController
+{
+    [[FacebookHelper Instance]inviteFriendsWithAppLinkURLString:appLinkURLString WithAppImageURLString:appImageURLString WithViewController:viewController];
+}
+
+
 -(void)buyWithProduct:(NSString *)product
 {
     [[IAP Instance]buyWithProduct:product];

@@ -23,6 +23,8 @@
 -(void)logOut;
 
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
+-(void)shareWithImageStr:(NSString *)imageStr WithVIewController:(UIViewController *)viewController;
 
--(void)shareWithImage:(UIImage *)image ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController;
+
 @end

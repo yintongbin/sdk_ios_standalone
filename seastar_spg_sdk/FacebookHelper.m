@@ -8,7 +8,7 @@
 
 #import "FacebookHelper.h"
 #import "seastar_spg_sdkVC.h"
-@interface FacebookHelper()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface FacebookHelper()<FBSDKSharingDelegate>
 @property (nonatomic,strong)FBSDKLoginManager *loginManager;
 @property (nonatomic,strong)UIImagePickerController *imagePickerController;
 @end
@@ -48,25 +48,6 @@ static FacebookHelper *_instance;
 }
 
 
-
-
-
-
-
--(FBSDKLoginManager *)loginManager
-{
-    if(!_loginManager)
-    {
-        _loginManager = [[FBSDKLoginManager alloc]init];
-    }
-    return _loginManager;
-}
-
-
-
-
-
-
 -(void)loginWithViewController:(UIViewController *)viewController
 {
     [self.loginManager logInWithReadPermissions:@[@"public_profile"] fromViewController:viewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
@@ -86,31 +67,10 @@ static FacebookHelper *_instance;
     
 }
 
-
-//-(void)login
-//{
-//    UIViewController *mainVC = [[seastar_spg_sdkVC Instance].delegate getController];
-//    [self.loginManager logInWithReadPermissions:@[@"public_profile"] fromViewController:mainVC handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-//        if(error)
-//        {
-//            NSLog(@"Process error");
-//        }else if (result.isCancelled)
-//        {
-//            NSLog(@"Cancelled");
-//        }else
-//        {
-//            NSLog(@"logged in");
-//        }
-//        
-//    }];
-//}
-
 -(void)logOut
 {
     [self.loginManager logOut];
 }
-
-
 
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
 {
@@ -123,13 +83,46 @@ static FacebookHelper *_instance;
     [FBSDKShareDialog showFromViewController:viewController withContent:content delegate:nil];
 }
 
--(void)shareWithImage:(UIImage *)image ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
+-(void)shareWithImageStr:(NSString *)imageStr WithVIewController:(UIViewController *)viewController
 {
-    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc]init];
-    
+    FBSDKSharePhoto *photo = [[FBSDKSharePhoto alloc]init];
+    photo.image = [UIImage imageNamed:imageStr];
+    photo.userGenerated = YES;
+    FBSDKSharePhotoContent *content = [[FBSDKSharePhotoContent alloc]init];
+    content.photos = @[photo];
+    FBSDKShareDialog *shareDialog = [[FBSDKShareDialog alloc]init];
+    shareDialog.shareContent = content;
+    shareDialog.delegate = self;
+    shareDialog.fromViewController = viewController;
+    [shareDialog show];
 }
 
 
+#pragma FBSDKSharingDelegate
+
+-(void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
+{
+    NSLog(@"分享成功%@",results);
+}
+
+-(void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
+{
+    NSLog(@"分享失败%@",error);
+}
+
+-(void)sharerDidCancel:(id<FBSDKSharing>)sharer
+{
+    NSLog(@"取消分享");
+}
+
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController
+{
+    FBSDKAppInviteContent *content = [[FBSDKAppInviteContent alloc]init];
+    content.appLinkURL = [NSURL URLWithString:appLinkURLString];
+    content.appInvitePreviewImageURL = [NSURL URLWithString:appImageURLString];
+    [FBSDKAppInviteDialog showFromViewController:viewController withContent:content delegate:nil];
+    
+}
 
 
 
