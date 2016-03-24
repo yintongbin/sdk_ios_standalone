@@ -7,10 +7,8 @@
 //
 
 #import "FacebookHelper.h"
-#import "seastar_spg_sdkVC.h"
 @interface FacebookHelper()<FBSDKSharingDelegate>
 @property (nonatomic,strong)FBSDKLoginManager *loginManager;
-@property (nonatomic,strong)UIImagePickerController *imagePickerController;
 @end
 static FacebookHelper *_instance;
 @implementation FacebookHelper
@@ -22,15 +20,6 @@ static FacebookHelper *_instance;
         _instance = [[FacebookHelper alloc]init];
     }
     return _instance;
-}
-
--(UIImagePickerController *)imagePickerController
-{
-    if(!_imagePickerController)
-    {
-        _imagePickerController = [[UIImagePickerController alloc]init];
-    }
-    return _imagePickerController;
 }
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -50,21 +39,33 @@ static FacebookHelper *_instance;
 
 -(void)loginWithViewController:(UIViewController *)viewController
 {
-    [self.loginManager logInWithReadPermissions:@[@"public_profile"] fromViewController:viewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+    
+    [self.loginManager logInWithReadPermissions:@[@"user_hometown",@"user_location",@"user_friends",@"public_profile",@"email",@"user_friends"] fromViewController:viewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if(error)
         {
+            self.facebookLoginCallBack(nil);
             NSLog(@"Process error");
+            
         }else if (result.isCancelled)
         {
+            self.facebookLoginCallBack(nil);
             NSLog(@"Cancelled");
         }else
         {
+            FacebookLoginInfo *info = [[FacebookLoginInfo alloc]init];
+            info.appID = result.token.appID;
+            info.declinedPermissions = result.token.declinedPermissions;
+            info.expirationDate = result.token.expirationDate;
+            info.permissions = result.token.permissions;
+            info.refreshDate = result.token.refreshDate;
+            info.tokenString = result.token.tokenString;
+            info.userID = result.token.userID;
+            info.grantedPermissions = result.grantedPermissions;
+            info.facebookLoginSuccess = YES;
+            self.facebookLoginCallBack(info);
             NSLog(@"logged in");
         }
-        
     }];
-
-    
 }
 
 -(void)logOut
@@ -103,15 +104,18 @@ static FacebookHelper *_instance;
 -(void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
 {
     NSLog(@"分享成功%@",results);
+    self.successShare(YES);
 }
 
 -(void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
 {
+    self.successShare(NO);
     NSLog(@"分享失败%@",error);
 }
 
 -(void)sharerDidCancel:(id<FBSDKSharing>)sharer
 {
+    self.successShare(NO);
     NSLog(@"取消分享");
 }
 
@@ -123,17 +127,6 @@ static FacebookHelper *_instance;
     [FBSDKAppInviteDialog showFromViewController:viewController withContent:content delegate:nil];
     
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 @end

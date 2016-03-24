@@ -10,14 +10,18 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-@interface FacebookHelper : NSObject
+#import "FacebookLoginInfo.h"
 
+@interface FacebookHelper : NSObject
+//@property (nonatomic,copy)void(^FacebookLoginCallBack)(BOOL facebookLogin,FacebookLoginInfo *facebookLoginInfo);
+
+@property (nonatomic,copy)void(^facebookLoginCallBack)(FacebookLoginInfo *info);
+@property (nonatomic,copy)void(^successShare)(bool success);
 +(FacebookHelper *)Instance;
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 -(void)activateApp;
-
 
 -(void)loginWithViewController:(UIViewController *)viewController;
 -(void)logOut;

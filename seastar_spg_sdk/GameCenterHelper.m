@@ -23,7 +23,12 @@ static GameCenterHelper *_instance;
 - (void)authenticateLocalUserWithViewController:(UIViewController *)gameCenterViewController
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    
+    GameCenterLoginInfo *info = [GameCenterLoginInfo new];
+    info.playerID = [GKLocalPlayer localPlayer].playerID;
+    info.displayName = [GKLocalPlayer localPlayer].displayName;
+    info.alias = [GKLocalPlayer localPlayer].alias;
+    info.gusetIdentifier = [GKLocalPlayer localPlayer].guestIdentifier;
+    self.gamecenterLoginCallBack(info);
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
         if (viewController != nil) {
 //            UIViewController *mainVC = [[seastar_spg_sdkVC Instance].delegate getController];

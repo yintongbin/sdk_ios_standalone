@@ -11,14 +11,30 @@
 		EE2777D01C8978CC00075C7D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2777CF1C8978CC00075C7D /* FBSDKCoreKit.framework */; };
 		EE2777D21C8978D400075C7D /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2777D11C8978D400075C7D /* FBSDKLoginKit.framework */; };
 		EE2777F31C899A6E00075C7D /* seastar_spg_sdkVC.h in Headers */ = {isa = PBXBuildFile; fileRef = EE2777F11C899A6E00075C7D /* seastar_spg_sdkVC.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EE2777F41C899A6E00075C7D /* seastar_spg_sdkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.m */; };
+		EE2777F41C899A6E00075C7D /* seastar_spg_sdkVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.mm */; };
 		EE2777F71C899E7100075C7D /* FacebookHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE2777F51C899E7100075C7D /* FacebookHelper.h */; };
 		EE2777F81C899E7100075C7D /* FacebookHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2777F61C899E7100075C7D /* FacebookHelper.m */; };
 		EE2777FB1C899E8100075C7D /* GameCenterHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = EE2777F91C899E8100075C7D /* GameCenterHelper.h */; };
 		EE2777FC1C899E8100075C7D /* GameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2777FA1C899E8100075C7D /* GameCenterHelper.m */; };
+		EE3EE7EE1CA3BD8C00C8E3ED /* GameCenterLoginInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EE3EE7EC1CA3BD8C00C8E3ED /* GameCenterLoginInfo.h */; };
+		EE3EE7EF1CA3BD8C00C8E3ED /* GameCenterLoginInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3EE7ED1CA3BD8C00C8E3ED /* GameCenterLoginInfo.m */; };
 		EE6F0F361C926D3400F5D086 /* IAP.h in Headers */ = {isa = PBXBuildFile; fileRef = EE6F0F341C926D3400F5D086 /* IAP.h */; };
 		EE6F0F371C926D3400F5D086 /* IAP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6F0F351C926D3400F5D086 /* IAP.m */; };
+		EEA6CD3D1CA274D20053A6C4 /* FacebookLoginInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = EEA6CD3B1CA274D20053A6C4 /* FacebookLoginInfo.h */; };
+		EEA6CD3E1CA274D20053A6C4 /* FacebookLoginInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA6CD3C1CA274D20053A6C4 /* FacebookLoginInfo.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EEB541301CA152A600023676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EE25E2CD1C90169500AA623A /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
@@ -27,13 +43,17 @@
 		EE2777CF1C8978CC00075C7D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		EE2777D11C8978D400075C7D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		EE2777F11C899A6E00075C7D /* seastar_spg_sdkVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = seastar_spg_sdkVC.h; sourceTree = "<group>"; };
-		EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = seastar_spg_sdkVC.m; sourceTree = "<group>"; };
+		EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = seastar_spg_sdkVC.mm; sourceTree = "<group>"; };
 		EE2777F51C899E7100075C7D /* FacebookHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookHelper.h; sourceTree = "<group>"; };
 		EE2777F61C899E7100075C7D /* FacebookHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookHelper.m; sourceTree = "<group>"; };
 		EE2777F91C899E8100075C7D /* GameCenterHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterHelper.h; sourceTree = "<group>"; };
 		EE2777FA1C899E8100075C7D /* GameCenterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterHelper.m; sourceTree = "<group>"; };
+		EE3EE7EC1CA3BD8C00C8E3ED /* GameCenterLoginInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterLoginInfo.h; sourceTree = "<group>"; };
+		EE3EE7ED1CA3BD8C00C8E3ED /* GameCenterLoginInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenterLoginInfo.m; sourceTree = "<group>"; };
 		EE6F0F341C926D3400F5D086 /* IAP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAP.h; sourceTree = "<group>"; };
 		EE6F0F351C926D3400F5D086 /* IAP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAP.m; sourceTree = "<group>"; };
+		EEA6CD3B1CA274D20053A6C4 /* FacebookLoginInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookLoginInfo.h; sourceTree = "<group>"; };
+		EEA6CD3C1CA274D20053A6C4 /* FacebookLoginInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookLoginInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,11 +94,15 @@
 			children = (
 				EE2777C91C8977D700075C7D /* Info.plist */,
 				EE2777F11C899A6E00075C7D /* seastar_spg_sdkVC.h */,
-				EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.m */,
+				EE2777F21C899A6E00075C7D /* seastar_spg_sdkVC.mm */,
 				EE2777F51C899E7100075C7D /* FacebookHelper.h */,
 				EE2777F61C899E7100075C7D /* FacebookHelper.m */,
+				EEA6CD3B1CA274D20053A6C4 /* FacebookLoginInfo.h */,
+				EEA6CD3C1CA274D20053A6C4 /* FacebookLoginInfo.m */,
 				EE2777F91C899E8100075C7D /* GameCenterHelper.h */,
 				EE2777FA1C899E8100075C7D /* GameCenterHelper.m */,
+				EE3EE7EC1CA3BD8C00C8E3ED /* GameCenterLoginInfo.h */,
+				EE3EE7ED1CA3BD8C00C8E3ED /* GameCenterLoginInfo.m */,
 				EE6F0F341C926D3400F5D086 /* IAP.h */,
 				EE6F0F351C926D3400F5D086 /* IAP.m */,
 			);
@@ -93,6 +117,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE2777F31C899A6E00075C7D /* seastar_spg_sdkVC.h in Headers */,
+				EE3EE7EE1CA3BD8C00C8E3ED /* GameCenterLoginInfo.h in Headers */,
+				EEA6CD3D1CA274D20053A6C4 /* FacebookLoginInfo.h in Headers */,
 				EE6F0F361C926D3400F5D086 /* IAP.h in Headers */,
 				EE2777F71C899E7100075C7D /* FacebookHelper.h in Headers */,
 				EE2777FB1C899E8100075C7D /* GameCenterHelper.h in Headers */,
@@ -110,6 +136,7 @@
 				EE2777C01C8977D700075C7D /* Frameworks */,
 				EE2777C11C8977D700075C7D /* Headers */,
 				EE2777C21C8977D700075C7D /* Resources */,
+				EEB541301CA152A600023676 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -131,7 +158,6 @@
 				TargetAttributes = {
 					EE2777C31C8977D700075C7D = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 5246DH3B8G;
 					};
 				};
 			};
@@ -168,9 +194,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE2777FC1C899E8100075C7D /* GameCenterHelper.m in Sources */,
+				EEA6CD3E1CA274D20053A6C4 /* FacebookLoginInfo.m in Sources */,
 				EE2777F81C899E7100075C7D /* FacebookHelper.m in Sources */,
 				EE6F0F371C926D3400F5D086 /* IAP.m in Sources */,
-				EE2777F41C899A6E00075C7D /* seastar_spg_sdkVC.m in Sources */,
+				EE3EE7EF1CA3BD8C00C8E3ED /* GameCenterLoginInfo.m in Sources */,
+				EE2777F41C899A6E00075C7D /* seastar_spg_sdkVC.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +296,7 @@
 		EE2777CD1C8977D700075C7D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -288,6 +317,7 @@
 		EE2777CE1C8977D700075C7D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

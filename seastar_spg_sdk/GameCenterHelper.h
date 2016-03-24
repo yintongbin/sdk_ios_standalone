@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
+#import "GameCenterLoginInfo.h"
 @interface GameCenterHelper : NSObject<GKGameCenterControllerDelegate>
+
+@property (nonatomic,copy)void(^gamecenterLoginCallBack)(GameCenterLoginInfo *info);
+
 +(GameCenterHelper *)Instance;
 -(void)authenticateLocalUserWithViewController:(UIViewController *)gameCenterViewController;
 @end

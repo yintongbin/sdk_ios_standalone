@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import "FacebookLoginInfo.h"
 @protocol seastar_spg_sdkDelegate <NSObject>
 -(UIViewController *)getController;
 @end
@@ -16,6 +17,10 @@
 @interface seastar_spg_sdkVC : UIViewController
 
 @property (nonatomic,assign)id<seastar_spg_sdkDelegate>delegate;
+
+
+@property (nonatomic,assign)BOOL Login;
+//@property (nonatomic,strong)NSString *facebookLoginInfo;
 +(seastar_spg_sdkVC *)Instance;
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
@@ -23,6 +28,8 @@
 -(void)activateApp;
 
 -(void)ifacebookLoginWithViewController:(UIViewController *)viewController;
+-(void)doFacebookLogin;
+
 -(void)ifacebookLogOut;
 
 -(void)igamecenterLoginWithViewController:(UIViewController *)viewController;
@@ -41,3 +48,6 @@
 
 
 @end
+
+void doLogin();
+void doLoginCb();

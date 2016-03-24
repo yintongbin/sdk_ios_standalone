@@ -10,8 +10,12 @@
 #import "FacebookHelper.h"
 #import "GameCenterHelper.h"
 #import "IAP.h"
+#import "FacebookLoginInfo.h"
 @interface seastar_spg_sdkVC ()
-
+@property (nonatomic,strong)UIViewController *viewController;
+@property (nonatomic,strong)FacebookLoginInfo *facebookLogininfo;
+@property (nonatomic,assign)bool successShare;
+@property (nonatomic,strong)GameCenterLoginInfo *gamecenterLogininfo;
 @end
 static seastar_spg_sdkVC *_instance;
 @implementation seastar_spg_sdkVC
@@ -24,9 +28,29 @@ static seastar_spg_sdkVC *_instance;
     return _instance;
 }
 
+-(UIViewController *)viewController
+{
+    if(!_viewController)
+    {
+        _viewController = [UIViewController new];
+    }
+    return _viewController;
+}
+
+
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[FacebookHelper Instance]application:application didFinishLaunchingWithOptions:launchOptions];
+    
+}
+
+void doFbLogin() {
+//    [[FacebookHelper Instance]loginWithViewController:self.viewController WithInfo:self.facebookLogininfo];
+}
+
+void doFbLoginCb(NSString *userid)
+{
+    
     
 }
 
@@ -43,8 +67,19 @@ static seastar_spg_sdkVC *_instance;
 
 -(void)ifacebookLoginWithViewController:(UIViewController *)viewController
 {
-    [[FacebookHelper Instance]loginWithViewController:viewController];
+    [[FacebookHelper Instance]loginWithViewController:self.viewController];
+    [FacebookHelper Instance].facebookLoginCallBack = ^(FacebookLoginInfo *info)
+    {
+        self.facebookLogininfo = info;
+    };
 }
+
+-(void)doFacebookLogin
+{
+    [[FacebookHelper Instance]loginWithViewController:self.viewController];
+}
+
+
 
 -(void)ifacebookLogOut
 {
@@ -54,6 +89,10 @@ static seastar_spg_sdkVC *_instance;
 -(void)igamecenterLoginWithViewController:(UIViewController *)viewController
 {
     [[GameCenterHelper Instance]authenticateLocalUserWithViewController:viewController];
+    [GameCenterHelper Instance].gamecenterLoginCallBack = ^(GameCenterLoginInfo *info)
+    {
+        self.gamecenterLogininfo = info;
+    };
 }
 
 
@@ -61,6 +100,10 @@ static seastar_spg_sdkVC *_instance;
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
 {
     [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:viewController];
+    [FacebookHelper Instance].successShare = ^(bool success)
+    {
+        self.successShare = success;
+    };
 }
 
 -(void)shareWithImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
@@ -95,3 +138,8 @@ static seastar_spg_sdkVC *_instance;
 }
 
 @end
+
+void doLogin()
+{
+    [[seastar_spg_sdkVC alloc] doFacebookLogin];
+}
