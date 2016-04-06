@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface GameCenterLoginInfo : NSObject
+@property (nonatomic,assign)bool success;
 @property (nonatomic,strong)NSString *playerID;
 @property (nonatomic,strong)NSString *displayName;
 @property (nonatomic,strong)NSString *alias;

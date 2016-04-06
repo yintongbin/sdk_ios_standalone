@@ -28,6 +28,7 @@ static GameCenterHelper *_instance;
     info.displayName = [GKLocalPlayer localPlayer].displayName;
     info.alias = [GKLocalPlayer localPlayer].alias;
     info.gusetIdentifier = [GKLocalPlayer localPlayer].guestIdentifier;
+    info.success = YES;
     self.gamecenterLoginCallBack(info);
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error){
         if (viewController != nil) {

@@ -44,15 +44,6 @@ static seastar_spg_sdkVC *_instance;
     
 }
 
-void doFbLogin() {
-//    [[FacebookHelper Instance]loginWithViewController:self.viewController WithInfo:self.facebookLogininfo];
-}
-
-void doFbLoginCb(NSString *userid)
-{
-    
-    
-}
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -65,20 +56,15 @@ void doFbLoginCb(NSString *userid)
     [[FacebookHelper Instance]activateApp];
 }
 
--(void)ifacebookLoginWithViewController:(UIViewController *)viewController
+-(void)facebookLogin
 {
-    [[FacebookHelper Instance]loginWithViewController:self.viewController];
-    [FacebookHelper Instance].facebookLoginCallBack = ^(FacebookLoginInfo *info)
-    {
-        self.facebookLogininfo = info;
-    };
-}
 
--(void)doFacebookLogin
-{
-    [[FacebookHelper Instance]loginWithViewController:self.viewController];
+    [[FacebookHelper Instance]loginWithViewController:self.viewController WithCallback:^(NSString *LoginJson, bool LoginSuccess) {
+        const char *loginJson = [LoginJson UTF8String];
+        bool success = LoginSuccess;
+        onFacebookLoginCallBack(success, loginJson);
+    }];
 }
-
 
 
 -(void)ifacebookLogOut
@@ -100,10 +86,10 @@ void doFbLoginCb(NSString *userid)
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
 {
     [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:viewController];
-    [FacebookHelper Instance].successShare = ^(bool success)
-    {
-        self.successShare = success;
-    };
+//    [FacebookHelper Instance].successShare = ^(bool success)
+//    {
+//        self.successShare = success;
+//    };
 }
 
 -(void)shareWithImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
@@ -139,7 +125,20 @@ void doFbLoginCb(NSString *userid)
 
 @end
 
-void doLogin()
+void doFacebookLogin()
 {
-    [[seastar_spg_sdkVC alloc] doFacebookLogin];
+    [[seastar_spg_sdkVC Instance] facebookLogin];
 }
+
+void onFacebookLoginCallBack(bool loginSuccess,std::string loginJson )
+{
+    //登陆回调
+}
+
+
+
+
+
+
+
+

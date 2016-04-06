@@ -37,36 +37,44 @@ static FacebookHelper *_instance;
 }
 
 
--(void)loginWithViewController:(UIViewController *)viewController
+-(void)loginWithViewController:(UIViewController *)viewController WithCallback:(LoginCallBack)callback
 {
     
+    self.callback = callback;
     [self.loginManager logInWithReadPermissions:@[@"user_hometown",@"user_location",@"user_friends",@"public_profile",@"email",@"user_friends"] fromViewController:viewController handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
         if(error)
         {
-            self.facebookLoginCallBack(nil);
             NSLog(@"Process error");
-            
+            self.callback(nil,NO);
         }else if (result.isCancelled)
         {
-            self.facebookLoginCallBack(nil);
+            self.callback(nil,NO);
             NSLog(@"Cancelled");
         }else
         {
-            FacebookLoginInfo *info = [[FacebookLoginInfo alloc]init];
-            info.appID = result.token.appID;
-            info.declinedPermissions = result.token.declinedPermissions;
-            info.expirationDate = result.token.expirationDate;
-            info.permissions = result.token.permissions;
-            info.refreshDate = result.token.refreshDate;
-            info.tokenString = result.token.tokenString;
-            info.userID = result.token.userID;
-            info.grantedPermissions = result.grantedPermissions;
-            info.facebookLoginSuccess = YES;
-            self.facebookLoginCallBack(info);
+            NSDictionary *parametersDic = @{@"fields":@"id,name,picture,email,first_name,last_name,middle_name,name_format,third_party_id,gender,location,friends"};
+            if([FBSDKAccessToken currentAccessToken])
+            {
+                [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:parametersDic]startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    if(!error)
+                    {
+                        NSLog(@"show result = %@",result);
+                        if([NSJSONSerialization isValidJSONObject:result])
+                        {
+                            NSData *data = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+                            NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                            self.callback(str,YES);
+                        }
+                    }
+                }];
+            }
             NSLog(@"logged in");
         }
     }];
+
+    
 }
+
 
 -(void)logOut
 {
