@@ -5,7 +5,7 @@
 //  Created by seastar on 16/3/4.
 //  Copyright © 2016年 seastar. All rights reserved.
 //
-#include <string>
+//#include <string>
 #import <UIKit/UIKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
@@ -24,11 +24,12 @@
 
 -(void)ifacebookLogOut;
 
--(void)igamecenterLoginWithViewController:(UIViewController *)viewController;
+-(void)igameCenterLogin;
 
--(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
--(void)shareWithImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
--(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController;
+
+-(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr;
+-(void)shareWithImageStr:(NSString *)imageStr;
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString;
 
 
 -(void)buyWithProduct:(NSString *)product;
@@ -40,5 +41,5 @@
 @end
 
 
-void onFacebookLoginCallBack(bool loginSuccess,std::string loginJson);
+//void onFacebookLoginCallBack(bool loginSuccess,std::string loginJson);
 

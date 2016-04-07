@@ -13,12 +13,17 @@
 
 
 typedef void(^LoginCallBack)(NSString *LoginJson,bool LoginSuccess);
-
+typedef void(^shareContentCallBack)(bool shareContentSuccess);
+typedef void(^shareImageCallBack)(bool shareImageSuccess);
+typedef void(^inviteFriends)(bool inviteSuccess);
 @interface FacebookHelper : NSObject
 
 +(FacebookHelper *)Instance;
 
-@property (nonatomic,strong)LoginCallBack callback;
+@property (nonatomic,strong)LoginCallBack Logincallback;
+@property (nonatomic,strong)shareContentCallBack shareContentCallBack;
+@property (nonatomic,strong)shareImageCallBack shareImageCallBack;
+@property (nonatomic,strong)inviteFriends inviteCallBack;
 
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
@@ -29,8 +34,17 @@ typedef void(^LoginCallBack)(NSString *LoginJson,bool LoginSuccess);
 -(void)logOut;
 
 -(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController;
+
+-(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController WithCallback:(shareContentCallBack)callback;
+
 -(void)shareWithImageStr:(NSString *)imageStr WithVIewController:(UIViewController *)viewController;
 
+-(void)shareWithImageStr:(NSString *)imageStr WithVIewController:(UIViewController *)viewController WithCallback:(shareImageCallBack)callback;
+
 -(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController;
+
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController WithCallback:(inviteFriends)callback;
+
+-(void)getFriendsList;
 
 @end

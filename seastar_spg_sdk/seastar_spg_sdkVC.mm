@@ -10,12 +10,9 @@
 #import "FacebookHelper.h"
 #import "GameCenterHelper.h"
 #import "IAP.h"
-#import "FacebookLoginInfo.h"
 @interface seastar_spg_sdkVC ()
-@property (nonatomic,strong)UIViewController *viewController;
-@property (nonatomic,strong)FacebookLoginInfo *facebookLogininfo;
 @property (nonatomic,assign)bool successShare;
-@property (nonatomic,strong)GameCenterLoginInfo *gamecenterLogininfo;
+//@property (nonatomic,strong)GameCenterLoginInfo *gamecenterLogininfo;
 @end
 static seastar_spg_sdkVC *_instance;
 @implementation seastar_spg_sdkVC
@@ -62,7 +59,7 @@ static seastar_spg_sdkVC *_instance;
     [[FacebookHelper Instance]loginWithViewController:self.viewController WithCallback:^(NSString *LoginJson, bool LoginSuccess) {
         const char *loginJson = [LoginJson UTF8String];
         bool success = LoginSuccess;
-        onFacebookLoginCallBack(success, loginJson);
+        //onFacebookLoginCallBack(success, loginJson);
     }];
 }
 
@@ -72,34 +69,34 @@ static seastar_spg_sdkVC *_instance;
     [[FacebookHelper Instance]logOut];
 }
 
--(void)igamecenterLoginWithViewController:(UIViewController *)viewController
+
+-(void)igameCenterLogin
 {
-    [[GameCenterHelper Instance]authenticateLocalUserWithViewController:viewController];
-    [GameCenterHelper Instance].gamecenterLoginCallBack = ^(GameCenterLoginInfo *info)
-    {
-        self.gamecenterLogininfo = info;
-    };
+    [[GameCenterHelper Instance]authenticateLocalUserWithViewController:self.viewController WithCallBack:^(NSString *jsonStr, bool loginSuccess) {
+        const char *gameCenterLoginCallBack = [jsonStr UTF8String];
+        bool success = loginSuccess;
+        
+    }];
 }
 
 
-
--(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
+-(void)shareWithContentStr:(NSString *)contentStr ContentDescription:(NSString *)contentDescription ContentTitle:(NSString *)contentTitle ImageStr:(NSString *)imageStr
 {
-    [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:viewController];
+    [[FacebookHelper Instance]shareWithContentStr:contentStr ContentDescription:contentDescription ContentTitle:contentTitle ImageStr:imageStr WithViewController:self.viewController];
 //    [FacebookHelper Instance].successShare = ^(bool success)
 //    {
 //        self.successShare = success;
 //    };
 }
 
--(void)shareWithImageStr:(NSString *)imageStr WithViewController:(UIViewController *)viewController
+-(void)shareWithImageStr:(NSString *)imageStr
 {
-    [[FacebookHelper Instance]shareWithImageStr:imageStr WithVIewController:viewController];
+    [[FacebookHelper Instance]shareWithImageStr:imageStr WithVIewController:self.viewController];
 }
 
--(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController
+-(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString
 {
-    [[FacebookHelper Instance]inviteFriendsWithAppLinkURLString:appLinkURLString WithAppImageURLString:appImageURLString WithViewController:viewController];
+    [[FacebookHelper Instance]inviteFriendsWithAppLinkURLString:appLinkURLString WithAppImageURLString:appImageURLString WithViewController:self.viewController];
 }
 
 
@@ -108,10 +105,6 @@ static seastar_spg_sdkVC *_instance;
     [[IAP Instance]buyWithProduct:product];
 }
 
--(void)initWithDelegate:(id<seastar_spg_sdkDelegate>)delegate
-{
-    self.delegate = delegate;
-}
 
 -(void)addTransactionObserver
 {
@@ -130,10 +123,10 @@ void doFacebookLogin()
     [[seastar_spg_sdkVC Instance] facebookLogin];
 }
 
-void onFacebookLoginCallBack(bool loginSuccess,std::string loginJson )
-{
-    //登陆回调
-}
+//void onFacebookLoginCallBack(bool loginSuccess,std::string loginJson )
+//{
+//    //登陆回调
+//}
 
 
 

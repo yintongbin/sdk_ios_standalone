@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
-#import "GameCenterLoginInfo.h"
+//#import "GameCenterLoginInfo.h"
+
+typedef void(^GameCenterLoginCallBack)(NSString *jsonStr,bool loginSuccess);
+
 @interface GameCenterHelper : NSObject<GKGameCenterControllerDelegate>
 
-@property (nonatomic,copy)void(^gamecenterLoginCallBack)(GameCenterLoginInfo *info);
+//@property (nonatomic,copy)void(^gamecenterLoginCallBack)(GameCenterLoginInfo *info);
+@property (nonatomic,strong)GameCenterLoginCallBack LoginCallBack;
+
 
 +(GameCenterHelper *)Instance;
--(void)authenticateLocalUserWithViewController:(UIViewController *)gameCenterViewController;
+//-(void)authenticateLocalUserWithViewController:(UIViewController *)gameCenterViewController;
+-(void)authenticateLocalUserWithViewController:(UIViewController *)gameCenterViewController WithCallBack:(GameCenterLoginCallBack)callBack;
 @end
