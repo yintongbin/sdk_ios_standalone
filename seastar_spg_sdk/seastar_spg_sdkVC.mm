@@ -34,7 +34,10 @@ static seastar_spg_sdkVC *_instance;
     return _viewController;
 }
 
-
+-(void)getViewController:(UIViewController *)viewController
+{
+    self.viewController = viewController;
+}
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[FacebookHelper Instance]application:application didFinishLaunchingWithOptions:launchOptions];

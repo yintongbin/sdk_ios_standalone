@@ -16,6 +16,9 @@
 @property (nonatomic,assign)BOOL Login;
 +(seastar_spg_sdkVC *)Instance;
 
+-(void)getViewController:(UIViewController *)viewController;
+
+
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 -(void)activateApp;

@@ -7,8 +7,19 @@
 //
 
 #import "FacebookHelper.h"
+
 @interface FacebookHelper()<FBSDKSharingDelegate>
+enum share
+{
+    shareimage,
+    shareContent,
+};
 @property (nonatomic,strong)FBSDKLoginManager *loginManager;
+@property (nonatomic,assign)enum share facebookShare;
+
+@property (nonatomic,strong)NSString *nextUrl;
+@property (nonatomic,strong)NSString *prevUrl;
+
 @end
 static FacebookHelper *_instance;
 @implementation FacebookHelper
@@ -102,6 +113,7 @@ static FacebookHelper *_instance;
     content.imageURL = [[NSURL alloc]initWithString:imageStr];
     //UIViewController *mainVC = [[seastar_spg_sdkVC Instance].delegate getController];
     [FBSDKShareDialog showFromViewController:viewController withContent:content delegate:nil];
+    self.facebookShare = shareContent;
     
 }
 
@@ -134,6 +146,8 @@ static FacebookHelper *_instance;
     shareDialog.delegate = self;
     shareDialog.fromViewController = viewController;
     [shareDialog show];
+    self.facebookShare = shareimage;
+
     
 }
 
@@ -143,19 +157,46 @@ static FacebookHelper *_instance;
 -(void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results
 {
     NSLog(@"分享成功%@",results);
-    self.shareContentCallBack(YES);
+    switch (self.facebookShare) {
+        case shareContent:
+            self.shareContentCallBack(YES);
+            break;
+        case shareimage:
+            self.shareImageCallBack(YES);
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error
 {
     NSLog(@"分享失败%@",error);
-    self.shareContentCallBack(YES);
+    switch (self.facebookShare) {
+        case shareContent:
+            self.shareContentCallBack(NO);
+            break;
+        case shareimage:
+            self.shareImageCallBack(NO);
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)sharerDidCancel:(id<FBSDKSharing>)sharer
 {
-    self.shareContentCallBack(YES);
     NSLog(@"取消分享");
+    switch (self.facebookShare) {
+        case shareContent:
+            self.shareContentCallBack(NO);
+            break;
+        case shareimage:
+            self.shareImageCallBack(NO);
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController
@@ -189,10 +230,60 @@ static FacebookHelper *_instance;
 
 }
 
+-(void)getFriendsListWithHeight:(int)height WithWidth:(int)width WithLimit:(int)limit With:(friendlist)callback
+{
+    self.friendCallBack = callback;
+    NSString *fieldsStr = [NSString stringWithFormat:@"id,name,picture.height(%d).width(%d)",height,width];
+    NSString *limitStr = [NSString stringWithFormat:@"%d",limit];
+    NSDictionary *params = @{@"fields":fieldsStr,@"limit":limitStr};
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]initWithGraphPath:@"me/taggable_friends" parameters:params HTTPMethod:@"GET"];
+    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if(error)
+        {
+            NSLog(@"错误 %@",error);
+            self.friendCallBack(nil,NO);
+        }else{
+            NSLog(@"朋友列表%@",result);
+            if([NSJSONSerialization isValidJSONObject:result])
+            {
+                NSData *data = [NSJSONSerialization dataWithJSONObject:result options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                self.friendCallBack(str,YES);
+            }
+            NSDictionary *dataDic = [result objectForKey:@"paging"];
+            self.nextUrl = [dataDic objectForKey:@"next"];
+            self.prevUrl = [dataDic objectForKey:@"previous"];
+        }
+        
+    }];
 
+}
 
+-(void)next
+{
+    if(self.nextUrl == nil)
+    {
+        NSLog(@"没有下一页");
+    }else
+    {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.nextUrl]];
+        [NSURLConnection connectionWithRequest:request delegate:self];
+    }
 
+}
 
+-(void)previous
+{
+    if(self.prevUrl == nil)
+    {
+        NSLog(@"没有上一页");
+    }else
+    {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.prevUrl]];
+        [NSURLConnection connectionWithRequest:request delegate:self];
+    }
+
+}
 
 
 @end

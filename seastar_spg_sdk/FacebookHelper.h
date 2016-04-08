@@ -10,12 +10,13 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-
+#import <UIKit/UIKit.h>
 
 typedef void(^LoginCallBack)(NSString *LoginJson,bool LoginSuccess);
 typedef void(^shareContentCallBack)(bool shareContentSuccess);
 typedef void(^shareImageCallBack)(bool shareImageSuccess);
 typedef void(^inviteFriends)(bool inviteSuccess);
+typedef void(^friendlist)(NSString *friendlist,bool friendSuccess);
 @interface FacebookHelper : NSObject
 
 +(FacebookHelper *)Instance;
@@ -24,7 +25,7 @@ typedef void(^inviteFriends)(bool inviteSuccess);
 @property (nonatomic,strong)shareContentCallBack shareContentCallBack;
 @property (nonatomic,strong)shareImageCallBack shareImageCallBack;
 @property (nonatomic,strong)inviteFriends inviteCallBack;
-
+@property (nonatomic,strong)friendlist friendCallBack;
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
@@ -45,6 +46,6 @@ typedef void(^inviteFriends)(bool inviteSuccess);
 
 -(void)inviteFriendsWithAppLinkURLString:(NSString *)appLinkURLString WithAppImageURLString:(NSString *)appImageURLString WithViewController:(UIViewController *)viewController WithCallback:(inviteFriends)callback;
 
--(void)getFriendsList;
+-(void)getFriendsListWithHeight:(int)height WithWidth:(int)width WithLimit:(int)limit With:(friendlist)callback;
 
 @end
