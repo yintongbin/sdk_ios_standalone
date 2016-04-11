@@ -259,28 +259,64 @@ static FacebookHelper *_instance;
 
 }
 
--(void)next
+-(void)nextWith:(nextFriendList)callback
 {
+    self.nextfriendCallBack = callback;
     if(self.nextUrl == nil)
     {
         NSLog(@"没有下一页");
+        self.nextfriendCallBack(nil,NO);
     }else
     {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.nextUrl]];
-        [NSURLConnection connectionWithRequest:request delegate:self];
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSDictionary *nextDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //NSLog(@"------------next---------%@",nextDic);
+            NSDictionary *dataDic = [nextDic objectForKey:@"paging"];
+            self.nextUrl = [dataDic objectForKey:@"next"];
+            self.prevUrl = [dataDic objectForKey:@"previous"];
+            if([NSJSONSerialization isValidJSONObject:nextDic])
+            {
+                NSData *data = [NSJSONSerialization dataWithJSONObject:nextDic options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                //NSLog(@"--------str%@--------",str);
+                self.nextfriendCallBack(str,YES);
+            }
+        }];
+        [task resume];
+
     }
 
 }
 
--(void)previous
+-(void)previousWith:(prevFriendList)callback
 {
+    self.prevfriendCallBack = callback;
     if(self.prevUrl == nil)
     {
         NSLog(@"没有上一页");
+        self.prevfriendCallBack(nil,NO);
     }else
     {
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.prevUrl]];
-        [NSURLConnection connectionWithRequest:request delegate:self];
+        NSURLSession *session = [NSURLSession sharedSession];
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSDictionary *prevDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            //NSLog(@"------------prev---------%@",prevDic);
+            NSDictionary *dataDic = [prevDic objectForKey:@"paging"];
+            self.nextUrl = [dataDic objectForKey:@"next"];
+            self.prevUrl = [dataDic objectForKey:@"previous"];
+            if([NSJSONSerialization isValidJSONObject:prevDic])
+            {
+                NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                //NSLog(@"--------str-------%@",str);
+                self.prevfriendCallBack(str,YES);
+            }
+        }];
+        [task resume];
+
     }
 
 }

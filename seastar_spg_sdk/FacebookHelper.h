@@ -17,6 +17,9 @@ typedef void(^shareContentCallBack)(bool shareContentSuccess);
 typedef void(^shareImageCallBack)(bool shareImageSuccess);
 typedef void(^inviteFriends)(bool inviteSuccess);
 typedef void(^friendlist)(NSString *friendlist,bool friendSuccess);
+typedef void(^nextFriendList)(NSString *friendlist,bool friendSuccess);
+typedef void(^prevFriendList)(NSString *friendlist,bool friendSuccess);
+
 @interface FacebookHelper : NSObject
 
 +(FacebookHelper *)Instance;
@@ -26,6 +29,8 @@ typedef void(^friendlist)(NSString *friendlist,bool friendSuccess);
 @property (nonatomic,strong)shareImageCallBack shareImageCallBack;
 @property (nonatomic,strong)inviteFriends inviteCallBack;
 @property (nonatomic,strong)friendlist friendCallBack;
+@property (nonatomic,strong)nextFriendList nextfriendCallBack;
+@property (nonatomic,strong)prevFriendList prevfriendCallBack;
 
 -(void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
